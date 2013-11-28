@@ -17,7 +17,7 @@
 
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname=gsb_frais';   		
+      	private static $bdd='dbname=gsb_frais_newn1';   		
       	private static $user='root' ;    		
       	private static $mdp='' ;	
 		private static $monPdo;
@@ -54,11 +54,35 @@ class PdoGsb{
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
 	public function getInfosVisiteur($login, $mdp){
-		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur 
-		where visiteur.login='$login' and visiteur.mdp='$mdp'";
+		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom,'v' as type from visiteur 
+		where visiteur.login='$login' and visiteur.mdp='$mdp'";	
+                $rs = PdoGsb::$monPdo->query($req);
+		$ligne = $rs->fetch();
+                return $ligne;
+	}
+        	public function getInfosGestionnaire($login){
+		$req = "SELECT gestionnaire.id AS id, gestionnaire.nom AS nom, gestionnaire.prenom AS prenom, 'c' as type  FROM gestionnaire where gestionnaire.Login='$login'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
+	}
+        
+        	public function getInfosConnection($login, $mdp){
+               
+                $mdpc=md5($mdp);
+		$req = "select Login, Mdp, type from utilisateur where Login='$login' and Mdp='$mdpc'";
+		$rs = PdoGsb::$monPdo->query($req);
+		$ligne = $rs->fetch();
+                if($ligne['type']=="v")
+                {
+                    echo'visiteur';
+                  return  $this->getInfosVisiteur($login, $mdp);
+                }
+                else if ($ligne['type']=="c")
+                {
+                    echo 'gestionnaire';
+                  return  $this->getInfosGestionnaire($login,$mdp);
+                }
 	}
 
 /**
