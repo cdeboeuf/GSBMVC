@@ -27,6 +27,10 @@ switch($action){
 		}
 		break;
 	}
+        case'deconnexion':{
+        session_unset ();  
+        session_destroy ();
+        }
 	default :{
 		include("vues/v_connexion.php");
 		break;
