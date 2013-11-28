@@ -2,7 +2,8 @@
 include("vues/v_sommaire.php");
 $action = $_REQUEST['action'];
 $idVisiteur = $_SESSION['idVisiteur'];
-switch($action){
+switch($action)
+{
 	case 'selectionnerMois':{
 		$lesMois=$pdo->getLesMoisDisponibles($idVisiteur);
 		// Afin de sélectionner par défaut le dernier mois dans la zone de liste

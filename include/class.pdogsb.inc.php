@@ -297,5 +297,26 @@ class PdoGsb{
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
+        
+    /**
+     * Recherche tous les visiteurs qui ont une fiche de frais en cours "CR"
+     * Ajouter par Huseyin
+
+     */
+        public function visiteurFicheEnCours() 
+                {
+                    $requete = " Select DISTINCT(id),nom,prenom from visiteur Inner join fichefrais on fichefrais.idVisiteur = visiteur.id Where fichefrais.idEtat='CR'";
+                    return PdoGsb::$monPdo->query($requete);
+                }
+    /**
+     * Recherche tous les mois qui ont une fiche en cours "CR"
+     * Ajouter par Huseyin
+
+     */
+        public function moisFicheEnCours() 
+            {
+                    $requete = " Select DISTINCT(mois) from fichefrais Where fichefrais.idEtat='CR'";
+                    return PdoGsb::$monPdo->query($requete);
+            }
 }
 ?>
