@@ -28,10 +28,12 @@
            
 			<li >
 				  Comptable :<br>
-				<?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?>
+                                  <?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?>
+                                  <br>
+                                  <br>
 			</li>
-                         <li class="smenu">
-              <a href="index.php?uc=validerFrais&action=..." title="Se déconnecter">Valider fiche de frais</a>
+           <li class="smenu">
+              <a href="index.php?uc=validerFrais&action=validerFrais&action=selectionnerVisiteur" title="Valider">Valider fiche de frais</a>
            </li>
            <?php } ?>
          </ul>

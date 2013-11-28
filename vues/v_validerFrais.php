@@ -13,13 +13,13 @@
                         if(isset($_POST['Id']) && $_POST['Id']==$visiteur['id'])
                         {
                     ?>
-                            <option label='Visiteur' Selected value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['id']." ".$visiteur['nom']; ?></option>
+                           <option label='Visiteur' value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['prenom']." ".$visiteur['nom'] ."  |".$visiteur['id']; ?>
                     <?php
 
                         }
                         else
                         {
-                    ?>      <option label='Visiteur' value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['id']." ".$visiteur['nom']; ?></option><?php
+                    ?>      <option label='Visiteur' value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['prenom']." ".$visiteur['nom'] ."  |".$visiteur['id']; ?></option><?php
                         }
                     } 
                     ?>
@@ -52,6 +52,6 @@
             </form>
         </div>
         <br/>
-        <input type="Submit" value="Valider" style="left: 87%; position: relative">
+        <input type="Submit" value="Valider" style="left: 80%; position: relative">
 </div>
     
