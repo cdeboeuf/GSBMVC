@@ -75,12 +75,12 @@ class PdoGsb{
 		$ligne = $rs->fetch();
                 if($ligne['type']=="v")
                 {
-                    echo'visiteur';
+              
                   return  $this->getInfosVisiteur($login, $mdp);
                 }
                 else if ($ligne['type']=="c")
                 {
-                    echo 'gestionnaire';
+                    
                   return  $this->getInfosGestionnaire($login,$mdp);
                 }
 	}
@@ -342,5 +342,20 @@ class PdoGsb{
                     $requete = " Select DISTINCT(mois) from fichefrais Where fichefrais.idEtat='CR'";
                     return PdoGsb::$monPdo->query($requete);
             }
-}
+            
+            public function visiteurFicheValideRembourse() 
+                {
+                    $requete = " Select DISTINCT(id),nom,prenom from visiteur Inner join fichefrais on fichefrais.idVisiteur = visiteur.id Where DATEDIFF(dateModif, now())<364 and (fichefrais.idEtat='VA' or fichefrais.idEtat='RB') ";
+                    return PdoGsb::$monPdo->query($requete);
+                }
+            
+                public function detailFicheValideRembourse($id) 
+                {
+                    $requete = " Select * from fichefrais Where DATEDIFF(dateModif, now())<364 and (fichefrais.idEtat='VA' or fichefrais.idEtat='RB')And idVisiteur = '$id' ";
+                    return PdoGsb::$monPdo->query($requete);
+                }
+	
+
+
+                }
 ?>
