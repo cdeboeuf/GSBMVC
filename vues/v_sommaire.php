@@ -28,7 +28,9 @@
            
 			<li >
 				  Comptable :<br>
-				<?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?>
+                                  <?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?>
+                                  <br>
+                                  <br>
 			</li>
                          <li class="smenu">
               <a href="index.php?uc=validerFrais&action=selectionnerVisiteur" title="Valider fiche de frais">Valider fiche de frais</a>

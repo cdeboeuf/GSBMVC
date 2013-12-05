@@ -200,4 +200,26 @@ function nbErreurs(){
 	   return count($_REQUEST['erreurs']);
 	}
 }
+
+
+/**
+ * Donne les libelle des mois 
+   Ajouter par Huseyin
+ * @return le mois
+ */
+function GetLibelleMois($mois) 
+{
+    $tabLibelles = array('', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+    $libelle="";
+    
+    $mois=substr($mois,4,5);
+    if($mois<10)
+    {
+        $mois=substr($mois,1,1);
+    }
+    $libelle = $tabLibelles[$mois];
+
+    return $libelle;
+}
+
 ?>
