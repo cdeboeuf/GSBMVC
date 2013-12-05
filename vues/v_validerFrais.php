@@ -2,7 +2,7 @@
     <h2>Valider les fiches de frais des visiteurs médicaux</h2>
     <h3><legend>Visiteur à sélectionner :</legend></h3>
 	<div class="corpsForm">
-            <form method="POST" action="index.php?uc=validerFrais&action=VisiteurSelected"><br/>
+            <form method="POST" action="index.php?uc=validerFrais&action=VisiteurChoisit"><br/>
                 <label for="visiteur">Visiteur :</label>
                 <select name="Id">
                     <?php
@@ -13,7 +13,7 @@
                         if(isset($_POST['Id']) && $_POST['Id']==$visiteur['id'])
                         {
                     ?>
-                           <option label='Visiteur' value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['prenom']." ".$visiteur['nom'] ."  |".$visiteur['id']; ?>
+                           <option label='Visiteur' Selected value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['prenom']." ".$visiteur['nom'] ."  |".$visiteur['id']; ?>
                     <?php
 
                         }
@@ -49,9 +49,12 @@
                         }
                 ?>  
                 </select>
+                <br/>
+                <br />
+                <input type="Submit" value="Valider">
             </form>
         </div>
         <br/>
-        <input type="Submit" value="Valider" style="left: 80%; position: relative">
+        
 </div>
     

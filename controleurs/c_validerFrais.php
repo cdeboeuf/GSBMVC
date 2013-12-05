@@ -28,7 +28,7 @@ switch($action)
 		include("vues/v_validerFrais.php");
 		break;
 	}
-	case 'VisiteurSelected':
+	case 'VisiteurChoisit':
 	{		
             //Recuperation des frais forfait
             $res=$pdo->getLesFraisForfait($_POST['Id'],$_POST['mois']);
@@ -68,7 +68,7 @@ switch($action)
             $FraitHorsForfait=$pdo->getLesFraisHorsForfait($_POST['Id'],$_POST['mois']);
             
             include("vues/v_validerFrais.php");
-            include("vues/v_validerFraisSelected.php");
+            include("vues/v_validerFraisChoisit.php");
             break;
 	}
 }
