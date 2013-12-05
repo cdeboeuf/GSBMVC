@@ -4,8 +4,8 @@
         ?>
             <div class="corpsForm">
                 <form method="POST" action="index.php?uc=validerFrais&action=VisiteurChoisit&action2=FraitForfait" onsubmit="return confirm('Etes-vous sûr de vouloir modifier les Frais Forfaits ?');">
-                    <input TYPE='hidden' NAME='Id' VALUE='<?php echo $_POST['Id']; ?>'>
-                    <input TYPE='hidden' NAME='mois' VALUE='<?php echo $_POST['mois']; ?>'>
+                    <input type='hidden' name='Id' value='<?php echo $_POST['Id']; ?>'>
+                    <input type='hidden' name='mois' value='<?php echo $_POST['mois']; ?>'>
                     <fieldset>
                         <legend><h4>Elements forfaitisés :</h4></legend>
                         <p id="FraisForfait">
@@ -42,8 +42,8 @@
                         {
                         ?>
                             <form method="POST" action ="index.php?uc=validerFrais&action=VisiteurChoisit&action2=FraitHorsForfait" onsubmit="return confirm('Voulez-vous vraiment supprimer ce frais hors forfait ?');">
-                                <input TYPE='hidden' NAME='Id' VALUE='<?php echo $_POST['Id']; ?>'>
-                                <input TYPE='hidden' NAME='mois' VALUE='<?php echo $_POST['mois']; ?>'>
+                                <input type='hidden' name='Id' value='<?php echo $_POST['Id']; ?>'>
+                                <input type='hidden'  name='mois' value='<?php echo $_POST['mois']; ?>'>
                                 <tr>
                                     <td>
                                         <?php echo $TabHorsForfait['date']; ?>
@@ -59,8 +59,8 @@
 
                                     <td align=center><input  type="Submit" value="Supprimer"/></td>
                                 </tr>
-                                <input TYPE='hidden' NAME='IdHorsForfait' value='<?php echo $TabHorsForfait['id']; ?>'>
-                                <input TYPE='hidden' NAME='LibHorsForfait' value='<?php echo $TabHorsForfait['libelle']; ?>'>
+                                <input type='hidden' name='IdHorsForfait' value='<?php echo $TabHorsForfait['id']; ?>'>
+                                <input type='hidden' name='LibHorsForfait' value='<?php echo $TabHorsForfait['libelle']; ?>'>
                             </form>
 
                         <?php
@@ -80,8 +80,8 @@
                 ?>
 
                 <form method="POST" onSubmit="return(confirm('Voulez-vous valider cette fiche ?'));" action="index.php?uc=validerFrais&action=selectionnerVisiteur&action2=FicheValide">
-                    <input TYPE='hidden' NAME='Id' VALUE='<?php echo $_POST['Id']; ?>'>
-                    <input TYPE='hidden' NAME='mois' VALUE='<?php echo $_POST['mois']; ?>'>
+                    <input type='hidden' name='Id' value='<?php echo $_POST['Id']; ?>'>
+                    <input type='hidden' name='mois' value='<?php echo $_POST['mois']; ?>'>
                     <input type='Submit' value='Valider la fiche'>
                 </form>
             </fieldset>

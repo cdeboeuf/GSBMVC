@@ -10,17 +10,20 @@
                     while($visiteur=$listeVisiteur->fetch())
                     {
                         //On Selectionne le visiteurs en cours
-                        if(isset($_POST['Id']) && $_POST['Id']==$visiteur['id'])
+                        if(isset($visiteur['id']))
                         {
                     ?>
-                           <option label='Visiteur' Selected value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['prenom']." ".$visiteur['nom'] ."  |".$visiteur['id']; ?>
+                           <option label='Visiteur' Selected value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['prenom']." ".$visiteur['nom'] ."  |".$visiteur['id'];?>
                     <?php
 
                         }
                         else
                         {
-                    ?>      <option label='Visiteur' value='<?php echo $visiteur['id']; ?>'><?php echo $visiteur['prenom']." ".$visiteur['nom'] ."  |".$visiteur['id']; ?></option><?php
+                            ?>       
+                           <option label='Visiteur' value='<?php echo"Pas de visiteur"; ?> '</option>
+                           <?php
                         }
+                        
                     } 
                     ?>
                 </select>
@@ -36,14 +39,14 @@
                     while($mois=$listeMois->fetch())
                         {
                             //On Selectionne le mois en cours
-                            if(isset($_POST['mois']) && $_POST['mois']==$mois['mois'])
+                            if(isset($mois['mois']))
                             {
                 ?>              <option label='MoisVisiteurs' Selected value='<?php echo $mois['mois']; ?>'><?php echo GetLibelleMois($mois['mois'])." ".substr($mois['mois'],0,4); ?></option>
                 <?php    
                             }
                             else
                             {
-                ?>              <option label='MoisVisiteurs' value='<?php echo $mois['mois']; ?>'><?php echo GetLibelleMois($mois['mois'])." ".substr($mois['mois'],0,4); ?></option>
+                ?>              <option label='MoisVisiteurs' value='<?php echo"Pas de mois"; ?> '</option>
                 <?php
                             }
                         }
