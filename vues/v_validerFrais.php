@@ -11,6 +11,8 @@
                     while($visiteur=$listeVisiteur->fetch())
                     {
                         //On Selectionne le visiteurs en cours
+                        $idVisite = $visiteur['id'];
+                        
                         if(isset($visiteur['id']))
                         {
                     ?>
@@ -49,16 +51,18 @@
                 <br/>
                 <br />
                 <?php
-                if(!isset($visiteur['id']))
+                        if(!isset($idVisite))
                         {
                             echo "Pas de Visiteur";
                         }
                         else
                         {
-                            ?>
+                        ?>
                         <input type="Submit" value="Valider">   
                         <?php
                         }
+                        
+
                 ?>
             </form>
         </div>
