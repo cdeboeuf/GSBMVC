@@ -4,6 +4,7 @@
 	<div class="corpsForm">
             <form method="POST" action="index.php?uc=validerFrais&action=VisiteurChoisit"><br/>
                 <label for="visiteur">Visiteur :</label>
+                
                 <select name="Id">
                     <?php
                     //Affichage des visiteurs
@@ -17,17 +18,10 @@
                     <?php
 
                         }
-                        else
-                        {
-                            ?>       
-                           <option label='Visiteur' value='<?php echo"Pas de visiteur"; ?> '</option>
-                           <?php
-                        }
-                        
                     } 
+                        
                     ?>
                 </select>
-
                 <br/>
                 <br/>
 
@@ -54,7 +48,18 @@
                 </select>
                 <br/>
                 <br />
-                <input type="Submit" value="Valider">
+                <?php
+                if(!isset($visiteur['id']))
+                        {
+                            echo "Pas de Visiteur";
+                        }
+                        else
+                        {
+                            ?>
+                        <input type="Submit" value="Valider">   
+                        <?php
+                        }
+                ?>
             </form>
         </div>
         <br/>
