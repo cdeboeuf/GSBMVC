@@ -5,6 +5,11 @@ $listeVisiteur=$pdo->visiteurFicheEnCours();
 //Recuperation des mois
 $listeMois=$pdo->moisFicheEnCours();
 
+//Mise à jour de la somme des élements Forfaitisé et hors-forfait
+
+$pdo->SommeFrais();
+
+
 $action=$_GET['action'];
 switch($action)
 {
@@ -62,6 +67,8 @@ switch($action)
                             $MajFraitForfait=true;
                             break;
 			}
+                        
+                    
 		}
             }
             //Recuperation des frais hors forfaits.

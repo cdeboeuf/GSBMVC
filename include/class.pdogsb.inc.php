@@ -354,6 +354,20 @@ class PdoGsb{
                     $requete = " Select * from fichefrais Where DATEDIFF(dateModif, now())<364 and (fichefrais.idEtat='VA' or fichefrais.idEtat='RB')And idVisiteur = '$id' ";
                     return PdoGsb::$monPdo->query($requete);
                 }
+                
+                public function SommeFrais()
+                {
+                    $requete = "select lignefraishorsforfait.montant + fraisforfait.montant as Total from fraisforfait inner join lignefraisforfait on fraisforfait.id = lignefraisforfait.idFraisForfait inner join lignefraishorsforfait on lignefraisforfait.idVisiteur = lignefraishorsforfait.idVisiteur  ";
+                    return PdoGsb::$monPdo->query($requete);
+                    $pdo->UpdateSommeFrais($requete);
+
+                }
+                
+                public function UpdateSommeFrais($somme)
+                {
+                    $requete = "Update fichefrais set(montantValide = $somme) where idVisiteur = and mois = ";
+                    return PdoGsb::$monPdo->query($requete);
+                }
 	
 
 
