@@ -22,11 +22,7 @@
 			<?php
 				}
 			?>
-			
-			
-			
-			
-           
+
           </fieldset>
       </div>
       <div class="piedForm">
@@ -37,5 +33,6 @@
       </div>
         
       </form>
+</div>
 
   

@@ -5,11 +5,11 @@ $listeVisiteur=$pdo->visiteurFicheEnCours();
 //Recuperation des mois
 $listeMois=$pdo->moisFicheEnCours();
 
-
-
 $action=$_GET['action'];
+//Recuperation de l'action
 switch($action)
 {
+    //recherche de l'action
 	case 'selectionnerVisiteur':
 	{
             if(isset($_GET['action2']))
@@ -20,13 +20,11 @@ switch($action)
                         case 'FicheValide':
                             {
 				//Validation fiche de frais
-                                $pdo->SommeFrais($_POST['Id'], $_POST['mois']);
-                                
+                                //Mise à jour de la somme des élements Forfaitisé et hors-forfait     
+                                $pdo->SommeFrais($_POST['Id'], $_POST['mois']);                               
 				$pdo->majEtatFicheFrais($_POST['Id'],$_POST['mois'],"VA");
 				echo"<script> alert('La fiche de frais a été validée avec succès ! ');";
-				echo"window.location = 'index.php?uc=validerFrais&action=selectionnerVisiteur'</script>";
-                                //Mise à jour de la somme des élements Forfaitisé et hors-forfait
-                                //$pdo->SommeFrais($_POST['Id'], $_POST['mois']);
+				echo"window.location = 'index.php?uc=validerFrais&action=selectionnerVisiteur'</script>";               
                                 break;
                             }
                     }
@@ -51,7 +49,7 @@ switch($action)
                             break;
 			}
                         
-                    case 'FraitForfait':
+                     case 'FraitForfait':
 			{
                             //Mise a jour des frais forfait
                             $lesFrais =array();
@@ -63,19 +61,16 @@ switch($action)
                             $pdo->majFraisForfait($_POST['Id'], $_POST['mois'], $lesFrais);
 					
                             //Recuperation des frais forfait.
-                            $res=$pdo->getLesFraisForfait($_POST['Id'],$_POST['mois']);
-					
+                            $res=$pdo->getLesFraisForfait($_POST['Id'],$_POST['mois']);					
                             $MajFraitForfait=true;
                             break;
 			}
-                        
-                    
 		}
             }
             //Recuperation des frais hors forfaits.
             $FraitHorsForfait=$pdo->getLesFraisHorsForfait($_POST['Id'],$_POST['mois']);
             
-
+            //Affichage des vues
             include("vues/v_validerFrais.php");
             include("vues/v_validerFraisChoisit.php");
             break;

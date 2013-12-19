@@ -20,8 +20,9 @@ class PdoGsb{
       	private static $bdd='dbname=gsb_frais_newn1';   		
       	private static $user='root' ;    		
       	private static $mdp='' ;	
-		private static $monPdo;
-		private static $monPdoGsb=null;
+	private static $monPdo;
+	private static $monPdoGsb=null;
+                
 /**
  * Constructeur privé, crée l'instance de PDO qui sera sollicitée
  * pour toutes les méthodes de la classe
@@ -60,13 +61,26 @@ class PdoGsb{
 		$ligne = $rs->fetch();
                 return $ligne;
 	}
+        
+/**
+ * Retourne les informations d'un gestionnaire
+ 
+ * @param $login 
+ * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
+*/
         	public function getInfosGestionnaire($login){
 		$req = "SELECT gestionnaire.id AS id, gestionnaire.nom AS nom, gestionnaire.prenom AS prenom, 'c' as type  FROM gestionnaire where gestionnaire.Login='$login'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
-        
+      
+/**
+ * Retourne les informations d'une connection, pour svoir si l'utilisateur est un gestionnaire ou un visiteur
+ 
+ * @param $login, $mdp
+ * @return l'id, le nom et le prénom du gestionnaire ou du visiteur sous la forme d'un tableau associatif 
+*/
         	public function getInfosConnection($login, $mdp){
                
                 $mdpc=md5($mdp);
@@ -334,7 +348,6 @@ class PdoGsb{
                 }
     /**
      * Recherche tous les mois qui ont une fiche en cours "CR"
-     * Ajouter par Huseyin
 
      */
         public function moisFicheEnCours() 
@@ -343,18 +356,37 @@ class PdoGsb{
                     return PdoGsb::$monPdo->query($requete);
             }
             
+ /**
+ * Retourne la liste des visiteur qui ont des fiches a rembourser et valider
+ 
+ * @return une variable avec une liste
+*/           
+            
             public function visiteurFicheValideRembourse() 
                 {
                     $requete = " Select DISTINCT(id),nom,prenom from visiteur Inner join fichefrais on fichefrais.idVisiteur = visiteur.id Where DATEDIFF(dateModif, now())<364 and (fichefrais.idEtat='VA' or fichefrais.idEtat='RB') ";
                     return PdoGsb::$monPdo->query($requete);
                 }
             
+/**
+ * Retourne le detail d'un fiche ou la date de modification est inferieur a 365 jours
+ 
+ * @param $id
+ * @return une variable
+*/                 
+
                 public function detailFicheValideRembourse($id) 
                 {
-                    $requete = " Select * from fichefrais Where DATEDIFF(dateModif, now())<364 and (fichefrais.idEtat='VA' or fichefrais.idEtat='RB')And idVisiteur = '$id' ";
+                    $requete = " Select * from fichefrais Where DATEDIFF(dateModif, now())<365 and (fichefrais.idEtat='VA' or fichefrais.idEtat='RB')And idVisiteur = '$id' ";
                     return PdoGsb::$monPdo->query($requete);
                 }
                 
+/**
+ * Retourne le resultat total des frais forfait et hors forfait pour un mois et pour une personne
+ 
+ * @param $mois,$Id
+ * @return une variable avec le total des frais forfait et hors forfait pour un mois et pour une personne
+*/                
                 public function SommeFrais($Id, $Mois)
                 {
                     $requete1 = "SELECT SUM(montant) as montant FROM lignefraishorsforfait where idVisiteur = '$Id' and mois = '$Mois' group by idVisiteur ";
@@ -368,14 +400,17 @@ class PdoGsb{
                     $this->UpdateSommeFrais($Total, $Id, $Mois);
                 }
                 
+/**
+ * Modifie la somme d'une fiche de frais
+
+ * @param $Id,$somme,$Mois
+ */                
                 public function UpdateSommeFrais($somme, $Id, $Mois)
                 {
                     $requete = "Update fichefrais set montantValide = $somme where idVisiteur = '$Id' and mois = '$Mois' ";
                     PdoGsb::$monPdo->query($requete);
                     
                 }
-	
-
-
-                }
+                
+ }
 ?>
