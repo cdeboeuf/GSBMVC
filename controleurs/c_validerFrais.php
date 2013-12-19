@@ -5,9 +5,6 @@ $listeVisiteur=$pdo->visiteurFicheEnCours();
 //Recuperation des mois
 $listeMois=$pdo->moisFicheEnCours();
 
-//Mise à jour de la somme des élements Forfaitisé et hors-forfait
-
-$pdo->SommeFrais();
 
 
 $action=$_GET['action'];
@@ -23,10 +20,14 @@ switch($action)
                         case 'FicheValide':
                             {
 				//Validation fiche de frais
+                                $pdo->SommeFrais($_POST['Id'], $_POST['mois']);
+                                
 				$pdo->majEtatFicheFrais($_POST['Id'],$_POST['mois'],"VA");
 				echo"<script> alert('La fiche de frais a été validée avec succès ! ');";
 				echo"window.location = 'index.php?uc=validerFrais&action=selectionnerVisiteur'</script>";
-				break;
+                                //Mise à jour de la somme des élements Forfaitisé et hors-forfait
+                                //$pdo->SommeFrais($_POST['Id'], $_POST['mois']);
+                                break;
                             }
                     }
 		}
@@ -74,6 +75,7 @@ switch($action)
             //Recuperation des frais hors forfaits.
             $FraitHorsForfait=$pdo->getLesFraisHorsForfait($_POST['Id'],$_POST['mois']);
             
+
             include("vues/v_validerFrais.php");
             include("vues/v_validerFraisChoisit.php");
             break;

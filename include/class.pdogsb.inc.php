@@ -355,18 +355,24 @@ class PdoGsb{
                     return PdoGsb::$monPdo->query($requete);
                 }
                 
-                public function SommeFrais()
+                public function SommeFrais($Id, $Mois)
                 {
-                    $requete = "select lignefraishorsforfait.montant + fraisforfait.montant as Total from fraisforfait inner join lignefraisforfait on fraisforfait.id = lignefraisforfait.idFraisForfait inner join lignefraishorsforfait on lignefraisforfait.idVisiteur = lignefraishorsforfait.idVisiteur  ";
-                    return PdoGsb::$monPdo->query($requete);
-                    $pdo->UpdateSommeFrais($requete);
-
+                    $requete1 = "SELECT SUM(montant) as montant FROM lignefraishorsforfait where idVisiteur = '$Id' and mois = '$Mois' group by idVisiteur ";
+                    $requete2 = "SELECT SUM(quantite * montant) as montant from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = '$Id' and mois = '$Mois' group by idVisiteur";
+                    $res1 = PdoGsb::$monPdo->query($requete1);
+                    $Tot1 = $res1->fetch();  
+                    $res2 = PdoGsb::$monPdo->query($requete2);
+                    $Tot2 = $res2->fetch();
+                    $Total = $Tot1['montant'] + $Tot2['montant'];
+                    
+                    $this->UpdateSommeFrais($Total, $Id, $Mois);
                 }
                 
-                public function UpdateSommeFrais($somme)
+                public function UpdateSommeFrais($somme, $Id, $Mois)
                 {
-                    $requete = "Update fichefrais set(montantValide = $somme) where idVisiteur = and mois = ";
-                    return PdoGsb::$monPdo->query($requete);
+                    $requete = "Update fichefrais set montantValide = $somme where idVisiteur = '$Id' and mois = '$Mois' ";
+                    PdoGsb::$monPdo->query($requete);
+                    
                 }
 	
 
