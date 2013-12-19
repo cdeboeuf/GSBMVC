@@ -35,4 +35,9 @@
  <TD><?php echo $detail['montant']?></TD> 
         
     </TR> <?php }?>
-</TABLE> </div></div>
+    
+</TABLE>
+    <form method="POST" action="index.php?uc=suivrePaiement&action=suivre">
+          <input type="Submit" value="Retour">
+    </form>
+</div></div>
